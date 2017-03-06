@@ -9,9 +9,11 @@ public class EncerradorDeLeilao {
 
 	private int total = 0;
 	private RepositorioDeLeiloes leilaoDao;
+	private EnviadorDeEmail carteiro;
 
-	public EncerradorDeLeilao(RepositorioDeLeiloes leilaoDao) {
+	public EncerradorDeLeilao(RepositorioDeLeiloes leilaoDao, EnviadorDeEmail carteiro) {
 		this.leilaoDao = leilaoDao;
+		this.carteiro = carteiro;
 	}
 
 	public void encerra() {
@@ -22,6 +24,7 @@ public class EncerradorDeLeilao {
 				leilao.encerra();
 				total++;
 				leilaoDao.atualiza(leilao);
+				carteiro.envia(leilao);
 			}
 		}
 	}
